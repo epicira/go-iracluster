@@ -6,8 +6,8 @@ import (
 
 /*
 #cgo CPPFLAGS: -I${SRCDIR}/include
-#cgo darwin LDFLAGS: -lstdc++ -L /opt/homebrew/lib -lnats.3.8.2 -lbrotlicommon.1.1.0 -lbrotlidec.1.1.0 -lbrotlienc.1.1.0 -lboost_system-mt -lboost_coroutine-mt -lboost_stacktrace_basic-mt -lboost_thread-mt -lboost_timer-mt -lboost_date_time-mt -lboost_filesystem-mt -lssl.3 -lcrypto.3 -lsqlite3 -lcurl -lz -lfmt -lspdlog ${SRCDIR}/lib/darwin-arm64/libiracluster.a ${SRCDIR}/lib/darwin-arm64/libiracommon.a
-#cgo linux LDFLAGS: -lstdc++ ${SRCDIR}/lib/darwin-arm64/libiracluster.a ${SRCDIR}/lib/darwin-arm64/libiracommon.a
+#cgo darwin LDFLAGS: -lstdc++ -L/opt/homebrew/lib -lnats.3.8.2 -lbrotlicommon.1.1.0 -lbrotlidec.1.1.0 -lbrotlienc.1.1.0 -lboost_system-mt -lboost_coroutine-mt -lboost_stacktrace_basic-mt -lboost_thread-mt -lboost_timer-mt -lboost_date_time-mt -lboost_filesystem-mt -lssl.3 -lcrypto.3 -lsqlite3 -lcurl -lz -lfmt -lspdlog ${SRCDIR}/lib/darwin-arm64/libiracluster.a ${SRCDIR}/lib/darwin-arm64/libiracommon.a
+#cgo linux LDFLAGS: -lstdc++ -L/usr/lib/x86_64-linux-gnu -lnats -lbrotlicommon -lbrotlidec -lbrotlienc -lssl3 -lcrypto -lsqlite3 -lcurl -lz -lfmt -lspdlog -L/usr/local/lib -lboost_system-mt -lboost_coroutine-mt -lboost_stacktrace_basic-mt -lboost_thread-mt -lboost_timer-mt -lboost_date_time-mt -lboost_filesystem-mt ${SRCDIR}/lib/linux-amd64/libiracluster.a ${SRCDIR}/lib/linux-amd64/libiracommon.a
 #include "include/ira_cluster_callback.h"
 #include "include/ira_cluster_c.h"
 */

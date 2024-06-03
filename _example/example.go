@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/epicira/go-iracluster/iracluster"
+	"github.com/epicira/go-iracluster"
 )
 
 func main() {
