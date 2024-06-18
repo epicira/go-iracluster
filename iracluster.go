@@ -6,8 +6,8 @@ import (
 
 /*
 #cgo CPPFLAGS: -I${SRCDIR}/include
-#cgo darwin LDFLAGS: -lstdc++ -L/opt/homebrew/lib -lnats.3.8.2 -lbrotlicommon.1.1.0 -lbrotlidec.1.1.0 -lbrotlienc.1.1.0 -lboost_system-mt -lboost_coroutine-mt -lboost_stacktrace_basic-mt -lboost_thread-mt -lboost_timer-mt -lboost_date_time-mt -lboost_filesystem-mt -lssl.3 -lcrypto.3 -lsqlite3 -lcurl -lz -lfmt -lspdlog ${SRCDIR}/lib/darwin-arm64/libiracluster.a ${SRCDIR}/lib/darwin-arm64/libiracommon.a
-#cgo linux LDFLAGS: -lm -lstdc++ -L/usr/lib/x86_64-linux-gnu -lnats -lbrotlicommon -lbrotlidec -lbrotlienc -lssl3 -lcrypto -lsqlite3 -lcurl -lz -lfmt -lspdlog -L/usr/local/lib -lboost_system-mt-x64 -lboost_coroutine-mt-x64 -lboost_stacktrace_backtrace-mt-x64 -lboost_thread-mt-x64 -lboost_timer-mt-x64 -lboost_date_time-mt-x64 -lboost_filesystem-mt-x64 ${SRCDIR}/lib/linux-amd64/libiracluster.a ${SRCDIR}/lib/linux-amd64/libiracommon.a
+#cgo darwin LDFLAGS: -lstdc++ -liracluster -liracommon -L/opt/homebrew/lib -lnats.3.8.2 -lbrotlicommon.1.1.0 -lbrotlidec.1.1.0 -lbrotlienc.1.1.0 -lboost_system-mt -lboost_coroutine-mt -lboost_stacktrace_basic-mt -lboost_thread-mt -lboost_timer-mt -lboost_date_time-mt -lboost_filesystem-mt -lssl.3 -lcrypto.3 -lsqlite3 -lcurl -lz -lfmt -lspdlog
+#cgo linux LDFLAGS: -lm -liracluster -liracommon -lstdc++ -L/usr/lib/x86_64-linux-gnu -lnats -lbrotlicommon -lbrotlidec -lbrotlienc -lssl3 -lcrypto -lsqlite3 -lcurl -lz -lfmt -lspdlog -L/usr/local/lib -lboost_system-mt-x64 -lboost_coroutine-mt-x64 -lboost_stacktrace_backtrace-mt-x64 -lboost_thread-mt-x64 -lboost_timer-mt-x64 -lboost_date_time-mt-x64 -lboost_filesystem-mt-x64
 #include "include/ira_cluster_callback.h"
 #include "include/ira_cluster_c.h"
 */
@@ -152,8 +152,8 @@ func (tdb *TDB) Execute(sql string, publish ...bool) string {
 }
 
 func (tdb *TDB) ExecuteAsync(sql string, delay int, publish ...bool) {
-	// arena := &Arena{}
-	// defer arena.free()
+	arena := &Arena{}
+	defer arena.free()
 
 	publishChanges := tdb.PublishChanges
 	if len(publish) > 0 {
