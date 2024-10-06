@@ -58,9 +58,9 @@ func (p *PrivacyLevel) String() string {
 }
 
 type Privacy struct {
-	level      PrivacyLevel
-	publicKey  string
-	privateKey string
+	Level      PrivacyLevel
+	PublicKey  string
+	PrivateKey string
 }
 
 type TDB struct {
@@ -76,9 +76,9 @@ type TDB struct {
 func NewTDB(ic *IraCluster, dbName, initSql, indexSql string, publish bool, privacy *Privacy) *TDB {
 	if privacy == nil {
 		privacy = &Privacy{
-			level:      None,
-			publicKey:  "",
-			privateKey: "",
+			Level:      None,
+			PublicKey:  "",
+			PrivateKey: "",
 		}
 	}
 	return &TDB{
@@ -99,11 +99,11 @@ func (tdb *TDB) Open() string {
 	cResponse := C.C_TdbOpen(
 		arena.CString(tdb.ClusterID),
 		arena.CString(tdb.DBName),
-		arena.CString(tdb.Privacy.level.String()),
+		arena.CString(tdb.Privacy.Level.String()),
 		arena.CString(tdb.InitSQL),
 		arena.CString(tdb.IndexSQL),
-		arena.CString(tdb.Privacy.publicKey),
-		arena.CString(tdb.Privacy.privateKey),
+		arena.CString(tdb.Privacy.PublicKey),
+		arena.CString(tdb.Privacy.PrivateKey),
 	)
 	arena.Add(unsafe.Pointer(cResponse))
 	return C.GoString(cResponse)
