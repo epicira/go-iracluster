@@ -50,8 +50,23 @@ const (
 	Private
 )
 
-func (p *PrivacyLevel) String() string {
-	return [...]string{"none", "local", "shared", "private"}[*p]
+func (p PrivacyLevel) String() string {
+	return [...]string{"none", "local", "shared", "private"}[p]
+}
+
+func ParsePrivacyLevel(level string) (PrivacyLevel, bool) {
+	switch level {
+	case None.String():
+		return None, true
+	case Local.String():
+		return Local, true
+	case Shared.String():
+		return Shared, true
+	case Private.String():
+		return Private, true
+	default:
+		return None, false
+	}
 }
 
 type Privacy struct {
