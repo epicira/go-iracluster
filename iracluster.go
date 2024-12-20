@@ -1,6 +1,7 @@
 package iracluster
 
 import (
+	"time"
 	"unsafe"
 )
 
@@ -25,12 +26,29 @@ func New(appName string, clusterId string, cb func(string)) *IraCluster {
 		ClusterID: clusterId,
 		cPtr:      C.NewIraCluster(arena.CString(appName), arena.CString(clusterId), arena.CString("1.0.0")),
 	}
+	internalCallback = func(event string) {
+		switch event {
+		case "iracluster::received_pass":
+			licenseReceived = true
+		case "iracluster::cluster_joined":
+			clusterJoined = true
+		}
+	}
 	Callbacks = append(Callbacks, cb)
 	return iraCluster
 }
 
 func (ic *IraCluster) JoinCluster() bool {
-	return bool(C.joinCluster(ic.cPtr))
+	ok := bool(C.joinCluster(ic.cPtr))
+	if !ok {
+		return false
+	}
+	println("Waiting to join cluster and receive licenses...")
+	for !(clusterJoined && licenseReceived) {
+		time.Sleep(1 * time.Second)
+	}
+	println("Joined cluster and received licenses")
+	return true
 }
 
 func (ic *IraCluster) IsSenior() bool {
@@ -191,6 +209,10 @@ func (tdb *TDB) Close() bool {
 type callback func(string)
 
 var Callbacks = []callback{}
+var internalCallback callback
+
+var clusterJoined bool
+var licenseReceived bool
 
 //export IraClusterCallback
 func IraClusterCallback(message *C.char) {
@@ -198,5 +220,16 @@ func IraClusterCallback(message *C.char) {
 	C.free(unsafe.Pointer(message))
 	for _, cb := range Callbacks {
 		cb(goMsg)
+	}
+}
+
+//export InternalCallback
+func InternalCallback(message *C.char) {
+	goMsg := C.GoString(message)
+	// I am not freeing the memory here as the responsibility is taken care by the caller.
+	// But, this behavior is not consistent across different callbacks, so, keeping this as a reminder to make the behavior consistent.
+	// C.free(unsafe.Pointer(message))
+	if internalCallback != nil {
+		internalCallback(goMsg)
 	}
 }
