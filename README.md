@@ -67,7 +67,7 @@ go get github.com/epicira/go-iracluster
 ### Build applications with go-iracluster
 Debian
 ```shell
-export CGO_LDFLAGS="-Lvcpkg_installed/x64-linux/lib -lnats_static -lbrotlicommon -lbrotlidec -lbrotlienc -lsqlite3 -lcurl -lz -lspdlog -lboost_system -lboost_coroutine -lboost_stacktrace_backtrace -lboost_thread -lboost_timer -lboost_date_time -lboost_filesystem -lfmt -lssl -lcrypto -lsodium -L/usr/local/lib -liracluster -liracommon -L/usr/lib/x86_64-linux-gnu/ -lm -lstdc++"
+export CGO_LDFLAGS="-Lvcpkg_installed/x64-linux/lib -lnats_static -lbrotlicommon -lbrotlidec -lbrotlienc -lsqlite3 -lcurl -lz -lspdlog -lboost_system -lboost_coroutine -lboost_stacktrace_backtrace -lboost_thread -lboost_timer -lboost_date_time -lboost_filesystem -lfmt -lssl -lcrypto -lsodium -L/usr/local/lib -liracluster -L/usr/lib/x86_64-linux-gnu/ -lm -lstdc++"
 ```
 
 ```shell
