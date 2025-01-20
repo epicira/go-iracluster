@@ -38,6 +38,10 @@ func New(appName string, clusterId string, cb func(string)) *IraCluster {
 	return iraCluster
 }
 
+func (ic *IraCluster) RegisterIraClusterCallback(cb func(string)) {
+	Callbacks = append(Callbacks, cb)
+}
+
 func (ic *IraCluster) JoinCluster() bool {
 	ok := bool(C.joinCluster(ic.cPtr))
 	if !ok {
